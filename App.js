@@ -1,20 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import ContactsMenu from "./components/ContactsMenu";
+import MenuButtons from "./components/MenuButtons";
+import SearchBar from "./components/SearchBar";
+import Home from "./screens/Home";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Okkkasdfasdff</Text>
-      <StatusBar style="auto" />
+    <View>
+      <SafeAreaView>
+        <Home />
+        <SearchBar />
+        <MenuButtons />
+        <ContactsMenu />
+      </SafeAreaView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
