@@ -6,14 +6,5 @@ import SearchBar from "./components/SearchBar";
 import Home from "./screens/Home";
 
 export default function App() {
-  return (
-    <View>
-      <SafeAreaView>
-        <Home />
-        <SearchBar />
-        <MenuButtons />
-        <ContactsMenu />
-      </SafeAreaView>
-    </View>
-  );
+  return <Home />;
 }
