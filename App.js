@@ -4,7 +4,8 @@ import ContactsMenu from "./components/ContactsMenu";
 import MenuButtons from "./components/MenuButtons";
 import SearchBar from "./components/SearchBar";
 import Home from "./screens/Home";
+import Navigation from "./Navigation";
 
 export default function App() {
-  return <Home />;
+  return <Navigation />;
 }
