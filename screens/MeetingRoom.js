@@ -43,7 +43,7 @@ let socket;
 function MeetingRoom() {
   const [name, setName] = useState();
   const [roomId, setRoomId] = useState();
-  const [activeUsers, setActiveUsers] = useState(["Hemle", "Afif"]);
+  const [activeUsers, setActiveUsers] = useState([]);
   const [startCamera, setStartCamera] = useState(false);
 
   const __startCamera = async () => {
@@ -68,11 +68,9 @@ function MeetingRoom() {
     console.log("Yooooo");
     socket.on("connection", () => console.log("connected"));
 
-    // socket.on("all-users", (users) => {
-    //   console.log("Active Users");
-    //   console.log(users);
-    //   setActiveUsers(users);
-    // });
+    socket.on("all-users", (users) => {
+      setActiveUsers(users);
+    });
   }, []);
 
   return (
@@ -84,15 +82,17 @@ function MeetingRoom() {
               <Camera
                 type={"front"}
                 style={{
-                  width: activeUsers.length === 0 ? "100%" : 150,
-                  height: activeUsers.length === 0 ? 500 : 170,
+                  width: activeUsers.length <= 1 ? "100%" : 150,
+                  height: activeUsers.length <= 1 ? 500 : 170,
                 }}
               ></Camera>
-              {activeUsers.map((user, index) => (
-                <View key={index} style={styles.activeUserContainer}>
-                  <Text style={{ color: "white" }}>{user}</Text>
-                </View>
-              ))}
+              {activeUsers
+                .filter((user) => user.userName != name)
+                .map((user, index) => (
+                  <View key={index} style={styles.activeUserContainer}>
+                    <Text style={{ color: "white" }}>{user.userName}</Text>
+                  </View>
+                ))}
             </View>
           </View>
 
