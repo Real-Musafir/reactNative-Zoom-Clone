@@ -43,7 +43,7 @@ let socket;
 function MeetingRoom() {
   const [name, setName] = useState();
   const [roomId, setRoomId] = useState();
-  const [activeUsers, setActiveUsers] = useState();
+  const [activeUsers, setActiveUsers] = useState(["Hemle", "Afif"]);
   const [startCamera, setStartCamera] = useState(false);
 
   const __startCamera = async () => {
@@ -79,11 +79,21 @@ function MeetingRoom() {
     <View style={styles.container}>
       {startCamera ? (
         <SafeAreaView style={{ flex: 1 }}>
-          <View style={styles.cameraContainer}>
-            <Camera
-              type={"front"}
-              style={{ width: "100%", height: 500 }}
-            ></Camera>
+          <View style={styles.activeUsersContainer}>
+            <View style={styles.cameraContainer}>
+              <Camera
+                type={"front"}
+                style={{
+                  width: activeUsers.length === 0 ? "100%" : 150,
+                  height: activeUsers.length === 0 ? 500 : 170,
+                }}
+              ></Camera>
+              {activeUsers.map((user, index) => (
+                <View key={index} style={styles.activeUserContainer}>
+                  <Text style={{ color: "white" }}>{user}</Text>
+                </View>
+              ))}
+            </View>
           </View>
 
           <View style={styles.menu}>
@@ -130,8 +140,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   cameraContainer: {
-    flex: 1,
     backgroundColor: "black",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+  },
+  activeUserContainer: {
+    borderColor: "gray",
+    borderWidth: 1,
+    width: 150,
+    height: 170,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activeUsersContainer: {
+    flex: 1,
     justifyContent: "center",
   },
 });
