@@ -1,8 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import StartMeeting from "../components/StartMeeting";
 import { io } from "socket.io-client";
 import { Camera } from "expo-camera";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+const menuIcons = [
+  {
+    id: 1,
+    name: "microphone",
+    title: "Mute",
+    customColor: "#efefef",
+  },
+  {
+    id: 2,
+    name: "video-camera",
+    title: "Stop Video",
+  },
+  {
+    id: 3,
+    name: "upload",
+    title: "Share Content",
+  },
+  ,
+  {
+    id: 4,
+    name: "group",
+    title: "Participants",
+  },
+];
 
 let socket;
 
@@ -44,7 +78,23 @@ function MeetingRoom() {
   return (
     <View style={styles.container}>
       {startCamera ? (
-        <Camera type={"front"} style={{ width: "100%", height: 500 }}></Camera>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.cameraContainer}>
+            <Camera
+              type={"front"}
+              style={{ width: "100%", height: 500 }}
+            ></Camera>
+          </View>
+
+          <View style={styles.menu}>
+            {menuIcons.map((icon, index) => (
+              <TouchableOpacity style={styles.tile}>
+                <FontAwesome name={icon.name} size={24} color={"#efefef"} />
+                <Text style={styles.textTile}>{icon.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </SafeAreaView>
       ) : (
         <StartMeeting
           name={name}
@@ -64,5 +114,24 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#1c1c1c",
     flex: 1,
+  },
+  tile: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    marginTop: 15,
+  },
+  textTile: {
+    color: "white",
+    marginTop: 10,
+  },
+  menu: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  cameraContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    justifyContent: "center",
   },
 });
