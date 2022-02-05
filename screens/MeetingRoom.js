@@ -22,11 +22,11 @@ function MeetingRoom() {
     console.log("Yooooo");
     socket.on("connection", () => console.log("connected"));
 
-    // socket.on("all-users", (users) => {
-    //   console.log("Active Users");
-    //   console.log(users);
-    //   setActiveUsers(users);
-    // });
+    socket.on("all-users", (users) => {
+      console.log("Active Users");
+      console.log(users);
+      setActiveUsers(users);
+    });
   }, []);
 
   return (
